@@ -86,31 +86,40 @@
             <div class="columna-contenedor" id="columnaFinal" style="display: none;"></div>
         </div>
     </div>
-    <script>
-        const starsContainer = document.getElementById('starsBg');
-        for (let i = 0; i < 45; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.width = `${Math.random() * 7 + 4}px`;
-            star.style.height = star.style.width;
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.animationDelay = `${Math.random() * 3}s`;
-            starsContainer.appendChild(star);
-        }
+     <script>
+        // Forzamos al navegador a esperar que toda la web esté lista antes de ejecutar el código
+        document.addEventListener("DOMContentLoaded", () => {
+            const starsContainer = document.getElementById('starsBg');
+            if (starsContainer) {
+                for (let i = 0; i < 45; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.width = `${Math.random() * 7 + 4}px`;
+                    star.style.height = star.style.width;
+                    star.style.top = `${Math.random() * 100}vh`;
+                    star.style.left = `${Math.random() * 100}vw`;
+                    star.style.animationDelay = `${Math.random() * 3}s`;
+                    starsContainer.appendChild(star);
+                }
+            }
 
-        const video = document.getElementById('videoIntro');
-        if (video) {
-            video.onended = function() {
-                document.getElementById('btnSiguiente').style.display = 'inline-block';
-            };
-        }
-
-        // Ayuda con el autoplay en dispositivos móviles si tocan la tarjeta
-        document.querySelector('.card').addEventListener('click', () => {
             const video = document.getElementById('videoIntro');
-            if (video && video.paused && !video.ended) {
-                video.play().catch(e => console.log(e));
+            if (video) {
+                video.onended = function() {
+                    const btn = document.getElementById('btnSiguiente');
+                    if (btn) btn.style.display = 'inline-block';
+                };
+            }
+
+            // Ayuda con el autoplay en móviles al interactuar con la tarjeta de forma segura
+            const tarjeta = document.querySelector('.card');
+            if (tarjeta) {
+                tarjeta.addEventListener('click', () => {
+                    const videoIntro = document.getElementById('videoIntro');
+                    if (videoIntro && videoIntro.paused && !videoIntro.ended) {
+                        videoIntro.play().catch(e => console.log(e));
+                    }
+                });
             }
         });
 
@@ -118,13 +127,17 @@
             const video = document.getElementById('videoIntro');
             if (video) { video.pause(); }
             
-            document.getElementById('musicaFondo').play().catch(e => console.log(e));
+            const musica = document.getElementById('musicaFondo');
+            if (musica) { musica.play().catch(e => console.log(e)); }
+            
             cambiarVentana('v1', 'v2');
         }
         
         function cambiarVentana(idOcultar, idMostrar) {
-            document.getElementById(idOcultar).classList.remove('activa');
-            document.getElementById(idMostrar).classList.add('activa');
+            const ocultar = document.getElementById(idOcultar);
+            const mostrar = document.getElementById(idMostrar);
+            if (ocultar) ocultar.classList.remove('activa');
+            if (mostrar) mostrar.classList.add('activa');
         }
         
         function lanzarSorpresa() {
@@ -134,7 +147,7 @@
             if (columna && columna.children.length === 0) {
                 columna.style.display = 'flex';
                 
-                // 1. CORREGIDO: Carga dinámica de los 3 GIFs con su variable correcta
+                // 1. Carga de los 3 GIFs secuenciales
                 for (let g = 1; g <= 3; g++) {
                     let imgGif = document.createElement('img');
                     imgGif.src = `gif${g}.gif`;
@@ -143,7 +156,7 @@
                     columna.appendChild(imgGif);
                 }
                 
-                // 2. Carga dinámica de las 27 imágenes verticales
+                // 2. Carga de las 27 imágenes
                 for (let i = 1; i <= 27; i++) {
                     let imgFoto = document.createElement('img');
                     imgFoto.src = `img${i}.jpg`;
@@ -152,7 +165,7 @@
                     columna.appendChild(imgFoto);
                 }
                 
-                // 3. Activación de la animación en cascada progresiva
+                // 3. Animación progresiva en cascada
                 setTimeout(() => {
                     const items = columna.querySelectorAll('.columna-item');
                     items.forEach((item, index) => {
