@@ -6,10 +6,10 @@
     <title>¡Feliz Cumpleaños Greysi!</title>
     <style>
         :root {
-            --lila-pastel: #E8DFF5; /* El nuevo fondo lila pastel */
+            --lila-pastel: #E8DFF5; /* El fondo lila pastel */
             --black: #1A1A1A;
             --white: #FFFFFF;
-            --accent-purple: #B39DDB; /* Un lila más oscurito para los botones */
+            --accent-purple: #B39DDB; /* Lila más oscuro para botones */
         }
 
         body {
@@ -170,46 +170,46 @@
 </head>
 <body>
 
+    <!-- Elemento de audio invisible -->
+    <audio id="musicaFondo" src="musica.mp3" loop></audio>
+
     <div class="stars-container" id="starsBg"></div>
 
     <div class="card">
         
-        <!-- VENTANA 1: El saludo inicial con Snoopy bailando -->
+        <!-- VENTANA 1 -->
         <div class="ventana activa" id="v1">
             <h1>¡Feliz Cumpleaños Greysi!</h1>
             <div class="zig-zag"></div>
-            <!-- Tu primer archivo local original -->
             <img src="snoopy.gif" alt="Snoopy Bailando" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
             <div class="zig-zag"></div>
-            <button class="btn" onclick="cambiarVentana('v1', 'v2')">Siguiente ✨</button>
+            <!-- Al hacer clic aquí se activará la música -->
+            <button class="btn" onclick="iniciarExperiencia()">Siguiente ✨</button>
         </div>
 
-        <!-- VENTANA 2: Tu frase personalizada con Quesomos.gif -->
+        <!-- VENTANA 2 -->
         <div class="ventana" id="v2">
             <div class="frase-especial">
                 "¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️
             </div>
-            <!-- Tu segundo archivo local -->
             <img src="Quesomos.gif" alt="Snoopy Intento" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
             <button class="btn" onclick="cambiarVentana('v2', 'v3')">Continuar 🐾</button>
         </div>
 
-        <!-- VENTANA 3: El mensaje de vida increíble con Tusueño.gif -->
+        <!-- VENTANA 3 -->
         <div class="ventana" id="v3">
             <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres.</p>
             <div class="zig-zag"></div>
-            <!-- Tu tercer archivo local -->
             <img src="Tusueño.gif" alt="Snoopy Sueños" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
             <div class="zig-zag"></div>
             <button class="btn" onclick="cambiarVentana('v3', 'v4')">Ver Firma ✉️</button>
         </div>
 
-        <!-- VENTANA 4: La firma final con Happy2.gif -->
+        <!-- VENTANA 4 -->
         <div class="ventana" id="v4">
             <div class="firma">
                 De Anibal, para tí... no me olvides. ✨
             </div>
-            <!-- Tu cuarto archivo local -->
             <img src="Happy2.gif" alt="Snoopy Final" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
             <br>
             <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
@@ -231,13 +231,19 @@
             starsContainer.appendChild(star);
         }
 
-        // Función para alternar entre las ventanas de la tarjeta
+        // Nueva función para iniciar la música con el primer clic de la tarjeta
+        function iniciarExperiencia() {
+            const musica = document.getElementById('musicaFondo');
+            musica.play().catch(error => console.log("El navegador bloqueó el inicio automático:", error));
+            cambiarVentana('v1', 'v2');
+        }
+
+        // Función para cambiar de ventanas
         function cambiarVentana(idOcultar, idMostrar) {
             document.getElementById(idOcultar).classList.remove('activa');
             document.getElementById(idMostrar).classList.add('activa');
         }
 
-        // Gran final interactivo con alerta y confeti masivo
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
             
