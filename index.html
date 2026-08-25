@@ -6,14 +6,15 @@
     <title>¡Feliz Cumpleaños Greysi!</title>
     <style>
         :root {
-            --yellow: #FCD116; /* Amarillo Charlie Brown */
+            --lila-pastel: #E8DFF5; /* El nuevo fondo lila pastel */
             --black: #1A1A1A;
             --white: #FFFFFF;
+            --accent-purple: #B39DDB; /* Un lila más oscurito para los botones */
         }
 
         body {
             font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-            background-color: var(--yellow);
+            background-color: var(--lila-pastel);
             color: var(--black);
             margin: 0;
             padding: 20px;
@@ -26,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* Contenedor para el fondo de estrellas */
+        /* Fondo de estrellas */
         .stars-container {
             position: fixed;
             top: 0;
@@ -60,11 +61,32 @@
             width: 100%;
             position: relative;
             z-index: 1;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Línea icónica de la playera de Charlie Brown */
+        /* Las ventanas inicialmente ocultas, excepto la primera */
+        .ventana {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .ventana.activa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .zig-zag {
             height: 20px;
+            width: 100%;
             background: linear-gradient(135px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%), 
                         linear-gradient(225px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%);
             background-size: 20px 40px;
@@ -84,31 +106,34 @@
             line-height: 1.6;
         }
 
-        /* Estilo especial para tu frase personalizada */
         .frase-especial {
             font-style: italic;
             font-weight: bold;
             font-size: 1.3rem;
-            color: #D32F2F; /* Tono rojo */
+            color: #D32F2F; 
             margin: 20px 0;
-            padding: 10px;
+            padding: 15px;
             border-left: 4px solid var(--black);
             border-right: 4px solid var(--black);
             background-color: #FFFDE7;
+            border-radius: 10px;
         }
 
-        /* Estilo para la firma de Anibal */
         .firma {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: #333;
-            margin-top: 15px;
-            text-align: right;
+            color: #222;
+            margin: 20px 0;
+            text-align: center;
             font-family: 'Courier New', Courier, monospace;
+            background: #F3E5F5;
+            padding: 15px;
+            border: 2px dashed var(--black);
+            border-radius: 10px;
         }
 
         .btn {
-            background-color: var(--yellow);
+            background-color: var(--accent-purple);
             color: var(--black);
             border: 3px solid var(--black);
             padding: 12px 25px;
@@ -120,6 +145,7 @@
             transition: transform 0.1s, box-shadow 0.1s;
             margin-top: 20px;
             text-transform: uppercase;
+            display: inline-block;
         }
 
         .btn:active {
@@ -127,12 +153,10 @@
             box-shadow: 0px 0px 0px var(--black);
         }
 
-        /* Animación de confeti */
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
-            background-color: var(--yellow);
             animation: drop 3s infinite linear;
             top: -20px;
             z-index: 10;
@@ -146,41 +170,60 @@
 </head>
 <body>
 
-    <!-- Contenedor del fondo estrellado -->
     <div class="stars-container" id="starsBg"></div>
 
     <div class="card">
-        <h1>¡Feliz Cumpleaños Greysi!</h1>
         
-        <div class="zig-zag"></div>
-
-        <!-- Imagen Local Vinculada Correctamente -->
-        <img src="snoopy.gif" alt="Snoopy" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
-
-        <!-- Frase personalizada -->
-        <div class="frase-especial">
-            "¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️
+        <!-- VENTANA 1: El saludo inicial con Snoopy bailando -->
+        <div class="ventana activa" id="v1">
+            <h1>¡Feliz Cumpleaños Greysi!</h1>
+            <div class="zig-zag"></div>
+            <!-- Tu archivo local de Snoopy Bailando -->
+            <img src="snoopy.gif" alt="Snoopy Bailando" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <div class="zig-zag"></div>
+            <button class="btn" onclick="cambiarVentana('v1', 'v2')">Siguiente ✨</button>
         </div>
 
-        <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres.</p>
-        
-        <!-- Tu firma personalizada -->
-        <div class="firma">
-            De Anibal, para tí... no me olvides. ✨
+        <!-- VENTANA 2: Tu frase personalizada con otro Snoopy -->
+        <div class="ventana" id="v2">
+            <div class="frase-especial">
+                "¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️
+            </div>
+            <!-- Snoopy escribiendo con una máquina de escribir de corazón -->
+            <img src="https://postimg.cc" alt="Snoopy Corazón" style="width: 100%; max-width: 150px; display: block; margin: 0 auto; border-radius: 10px;">
+            <button class="btn" onclick="cambiarVentana('v2', 'v3')">Continuar 🐾</button>
         </div>
 
-        <div class="zig-zag"></div>
+        <!-- VENTANA 3: El mensaje de vida increíble con otro Snoopy -->
+        <div class="ventana" id="v3">
+            <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres.</p>
+            <div class="zig-zag"></div>
+            <!-- Snoopy acostado en su casita mirando las estrellas -->
+            <img src="https://postimg.cc" alt="Snoopy Techo" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <div class="zig-zag"></div>
+            <button class="btn" onclick="cambiarVentana('v3', 'v4')">Ver Firma ✉️</button>
+        </div>
 
-        <button class="btn" onclick="lanzarSorpresa()">¡Presiona aquí!</button>
+        <!-- VENTANA 4: La firma final con el botón sorpresa sorpresa de confeti -->
+        <div class="ventana" id="v4">
+            <div class="firma">
+                De Anibal, para tí... no me olvides. ✨
+            </div>
+            <!-- Snoopy y Woodstock abrazados -->
+            <img src="https://postimg.cc" alt="Snoopy Abrazo" style="width: 100%; max-width: 150px; display: block; margin: 0 auto; border-radius: 10px;">
+            <br>
+            <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
+        </div>
+
     </div>
 
     <script {nonce}>
         // Generador automático de estrellitas de fondo
         const starsContainer = document.getElementById('starsBg');
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            star.style.width = `${Math.random() * 8 + 4}px`;
+            star.style.width = `${Math.random() * 7 + 4}px`;
             star.style.height = star.style.width;
             star.style.top = `${Math.random() * 100}vh`;
             star.style.left = `${Math.random() * 100}vw`;
@@ -188,16 +231,22 @@
             starsContainer.appendChild(star);
         }
 
+        // Función para alternar entre las ventanas de la tarjeta
+        function cambiarVentana(idOcultar, idMostrar) {
+            document.getElementById(idOcultar).classList.remove('activa');
+            document.getElementById(idMostrar).classList.add('activa');
+        }
+
+        // Gran final interactivo con alerta y confeti masivo
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
             
-            // Genera confeti al hacer clic
-            for(let i=0; i<40; i++) {
+            for(let i=0; i<60; i++) {
                 let confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.backgroundColor = ['#FCD116', '#1A1A1A', '#FF4136', '#0074D9', '#3D9970'][Math.floor(Math.random() * 5)];
+                confetti.style.backgroundColor = ['#D1C4E9', '#B39DDB', '#FF4081', '#00E676', '#00B0FF'][Math.floor(Math.random() * 5)];
                 document.body.appendChild(confetti);
                 
                 setTimeout(() => confetti.remove(), 3000);
