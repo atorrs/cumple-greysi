@@ -10,7 +10,10 @@
         .stars-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
         .star { position: absolute; background-color: white; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); opacity: 0; animation: twinkle 3s infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.8; transform: scale(1.2); } }
-        .card { background: var(--white); padding: 30px; border-radius: 20px; border: 4px solid var(--black); box-shadow: 8px 8px 0px var(--black); max-width: 500px; width: 100%; position: relative; z-index: 1; box-sizing: border-box; }
+        
+        /* TARJETA OPTIMIZADA: Más ancha para el video horizontal */
+        .card { background: var(--white); padding: 30px; border-radius: 20px; border: 4px solid var(--black); box-shadow: 8px 8px 0px var(--black); max-width: 600px; width: 100%; position: relative; z-index: 1; box-sizing: border-box; transition: max-width 0.5s ease; }
+        
         .ventana { display: none; width: 100%; animation: fadeIn 0.5s ease-in-out forwards; }
         .ventana.activa { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -32,20 +35,24 @@
         .columna-item { width: 100%; height: auto; max-height: 350px; object-fit: contain; border: 2px solid var(--black); border-radius: 10px; opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .columna-item.mostrar { opacity: 1; transform: translateY(0); }
 
-        /* ESTILO PARA EL NUEVO VIDEO INTRODUCTORIO */
-        .video-intro { width: 100%; max-height: 280px; border: 3px solid var(--black); border-radius: 12px; box-shadow: 4px 4px 0px var(--black); margin: 15px 0; background-color: #000; }
+        /* VIDEO HORIZONTAL AL 100% COMPLETO */
+        .video-intro { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; border: 3px solid var(--black); border-radius: 12px; box-shadow: 5px 5px 0px var(--black); margin: 15px 0; background-color: #000; display: block; }
+        
+        /* DISEÑO DE LA CITA DE FRANK OCEAN */
+        .cita-musica { font-family: monospace; font-size: 1.05rem; line-height: 1.5; color: #333; background: #FAFAFA; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 12px; padding: 20px; text-align: left; margin: 25px 0; position: relative; }
+        .cita-texto { font-style: italic; font-weight: bold; margin-bottom: 10px; color: var(--black); }
+        .cita-autor { font-size: 0.85rem; color: #666; text-align: right; text-transform: uppercase; letter-spacing: 1px; }
+        .cita-icono { position: absolute; top: -12px; right: 15px; background: var(--accent-purple); border: 2px solid var(--black); padding: 2px 8px; font-size: 0.8rem; border-radius: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
     <audio id="musicaFondo" src="musica.mp3" loop></audio>
     <div class="stars-container" id="starsBg"></div>
     <div class="card">
-        <!-- VENTANA 1 MODIFICADA CON VIDEO -->
         <div class="ventana activa" id="v1">
             <h1>¡Feliz Cumpleaños Greysi!</h1>
             <div class="zig-zag"></div>
             
-            <!-- Tu nuevo video (reproduce automático, con sonido y controles activados) -->
             <video id="videoIntro" class="video-intro" controls autoplay>
                 <source src="video.mp4" type="video/mp4">
                 Tu navegador no soporta videos.
@@ -53,8 +60,6 @@
 
             <img src="snoopy.gif" alt="Snoopy 1" class="gif-principal">
             <div class="zig-zag"></div>
-            
-            <!-- El botón empieza oculto (display: none) -->
             <button class="btn" id="btnSiguiente" onclick="iniciarExperiencia()" style="display: none;">Siguiente ✨</button>
         </div>
         <div class="ventana" id="v2">
@@ -84,6 +89,13 @@
             <button class="btn" onclick="cambiarVentana('v3', 'v4')">Ver Firma ✉️</button>
         </div>
         <div class="ventana" id="v4">
+            <!-- NUEVO CUADRO DE CITA ESTILO VINILO MUSICAL -->
+            <div class="cita-musica">
+                <div class="cita-icono">TRACK 05 🎧</div>
+                <div class="cita-texto">"I care for you still, and I will forever<br>That was my part of the deal, honest<br>We got so familiar"</div>
+                <div class="cita-autor">— White Ferrari by Frank Ocean</div>
+            </div>
+            
             <div class="firma">De Anibal, para tí... no me olvides. ✨</div>
             <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
@@ -91,7 +103,7 @@
             <div class="columna-contenedor" id="columnaFinal" style="display: none;"></div>
         </div>
     </div>
-     <script>
+      <script>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
@@ -104,7 +116,6 @@
             starsContainer.appendChild(star);
         }
 
-        // DETECTOR MÁGICO: Cuando el video termina, muestra el botón Siguiente
         const video = document.getElementById('videoIntro');
         if (video) {
             video.onended = function() {
@@ -113,9 +124,11 @@
         }
 
         function iniciarExperiencia() {
-            // Pausamos el video introductorio por seguridad antes de cambiar de ventana
             const video = document.getElementById('videoIntro');
             if (video) { video.pause(); }
+            
+            // Reajusta el ancho de la tarjeta al tamaño compacto original al cambiar de ventana
+            document.querySelector('.card').style.maxWidth = "500px";
             
             document.getElementById('musicaFondo').play().catch(e => console.log(e));
             cambiarVentana('v1', 'v2');
