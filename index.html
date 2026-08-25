@@ -154,4 +154,55 @@
         
         <div class="zig-zag"></div>
 
-        <!-- Imagen en Código Base64: No requiere internet externo, carga sí o sí -->
+        <!-- Imagen de Snoopy en Formato Base64 Limpio (Inmune a bloqueos) -->
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 100 100' width='160' height='160'><ellipse cx='45' cy='45' rx='15' ry='22' fill='white' stroke='black' stroke-width='3'/><ellipse cx='30' cy='48' rx='8' ry='15' fill='black'/><ellipse cx='58' cy='42' rx='10' ry='18' fill='white' stroke='black' stroke-width='2.5'/><ellipse cx='60' cy='42' rx='5' ry='11' fill='black'/><path d='M 40,65 Q 45,75 55,65 Q 50,85 35,80' fill='white' stroke='black' stroke-width='3' stroke-linecap='round'/><circle cx='44' cy='52' r='3' fill='black'/><circle cx='54' cy='50' r='3' fill='black'/><path d='M 36,58 Q 44,64 52,58' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/><path d='M 18,72 Q 10,75 15,85 Q 35,90 40,82' fill='white' stroke='black' stroke-width='3'/><circle cx='18' cy='74' r='4' fill='red'/></svg>" alt="Snoopy" style="width: 100%; max-width: 160px; display: block; margin: 0 auto;">
+
+        <!-- Frase personalizada -->
+        <div class="frase-especial">
+            "¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️
+        </div>
+
+        <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres.</p>
+        
+        <!-- Tu firma personalizada -->
+        <div class="firma">
+            De Anibal, para tí... no me olvides. ✨
+        </div>
+
+        <div class="zig-zag"></div>
+
+        <button class="btn" onclick="lanzarSorpresa()">¡Presiona aquí!</button>
+    </div>
+
+    <script {nonce}>
+        // Generador automático de estrellitas de fondo
+        const starsContainer = document.getElementById('starsBg');
+        for (let i = 0; i < 40; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 8 + 4}px`;
+            star.style.height = star.style.width;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starsContainer.appendChild(star);
+        }
+
+        function lanzarSorpresa() {
+            alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
+            
+            // Genera confeti al hacer clic
+            for(let i=0; i<40; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.backgroundColor = ['#FCD116', '#1A1A1A', '#FF4136', '#0074D9', '#3D9970'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
