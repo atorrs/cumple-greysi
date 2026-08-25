@@ -27,6 +27,14 @@
         .btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--black); }
         .confetti { position: absolute; width: 10px; height: 10px; animation: drop 3s infinite linear; top: -20px; z-index: 10; }
         @keyframes drop { 0% { top: -20px; transform: translateX(0) rotate(0deg); } 100% { top: 100vh; transform: translateX(50px) rotate(360deg); } }
+
+        /* ESTILOS DEL CARRUSEL */
+        .carrusel-contenedor { display: none; width: 100%; overflow-x: auto; white-space: nowrap; padding: 15px 5px; margin-top: 20px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 12px; background-color: var(--white); box-sizing: border-box; scroll-behavior: smooth; }
+        .carrusel-contenedor::-webkit-scrollbar { height: 8px; }
+        .carrusel-contenedor::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 4px; border: 1px solid var(--black); }
+        .carrusel-item { display: inline-block; width: 130px; height: 130px; object-fit: cover; margin-right: 12px; border: 2px solid var(--black); border-radius: 8px; opacity: 0; transform: translateY(15px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .carrusel-item:last-child { margin-right: 0; }
+        .carrusel-item.mostrar { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -71,9 +79,10 @@
             <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
             <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
+            <div class="carrusel-contenedor" id="carruselFinal"></div>
         </div>
     </div>
-    <script {nonce}>
+ <script>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
@@ -95,14 +104,36 @@
         }
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
-            for(let i=0; i<60; i++) {
+            const carrusel = document.getElementById('carruselFinal');
+            if (carrusel.children.length === 0) {
+                carrusel.style.display = 'block';
+                for (let g = 1; g <= 3; g++) {
+                    let imgGif = document.createElement('img');
+                    imgGif.src = `gif${g}.gif`;
+                    imgGif.alt = `Gif ${g}`;
+                    imgGif.classList.add('carrusel-item');
+                    carrusel.appendChild(imgGif);
+                }
+                for (let i = 1; i <= 27; i++) {
+                    let imgFoto = document.createElement('img');
+                    imgFoto.src = `img${i}.jpg`;
+                    imgFoto.alt = `Foto ${i}`;
+                    imgFoto.classList.add('carrusel-item');
+                    carrusel.appendChild(imgFoto);
+                }
+                const items = carrusel.querySelectorAll('.carrusel-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => { item.classList.add('mostrar'); }, index * 150);
+                });
+            }
+            const colores = ['#D1C4E9', '#B39DDB', '#FF4081', '#00E676', '#00B0FF'];
+            for(let i = 0; i < 60; i++) {
                 let confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.backgroundColor = ['#D1C4E9', '#B39DDB', '#FF4081', '#00E676', '#00B0FF'][Math.floor(Math.random() * 5)];
+                confetti.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
                 document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
             }
         }
     </script>
