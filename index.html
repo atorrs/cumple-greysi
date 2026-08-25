@@ -5,218 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Feliz Cumpleaños Greysi!</title>
     <style>
-        :root {
-            --lila-pastel: #E8DFF5;
-            --black: #1A1A1A;
-            --white: #FFFFFF;
-            --accent-purple: #B39DDB;
-        }
-
-        body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-            background-color: var(--lila-pastel);
-            color: var(--black);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        .stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            background-color: white;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            opacity: 0;
-            animation: twinkle 3s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-
-        .card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 20px;
-            border: 4px solid var(--black);
-            box-shadow: 8px 8px 0px var(--black);
-            max-width: 480px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        .ventana {
-            display: none;
-            width: 100%;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
-
-        .ventana.activa {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .zig-zag {
-            height: 20px;
-            width: 100%;
-            background: linear-gradient(135px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%), 
-                        linear-gradient(225px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%);
-            background-size: 20px 40px;
-            background-position: 0 0, 0 0;
-            margin: 20px 0;
-        }
-
-        h1 {
-            font-size: 2.3rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        p {
-            font-size: 1.15rem;
-            line-height: 1.6;
-            text-align: justify;
-            text-justify: inter-word;
-            margin: 15px 0;
-        }
-
-        .frase-especial {
-            font-style: italic;
-            font-weight: bold;
-            font-size: 1.3rem;
-            color: #D32F2F; 
-            margin: 20px 0;
-            padding: 15px;
-            border-left: 4px solid var(--black);
-            border-right: 4px solid var(--black);
-            background-color: #FFFDE7;
-            border-radius: 10px;
-        }
-
-        .firma {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #222;
-            margin: 20px 0;
-            text-align: center;
-            font-family: 'Courier New', Courier, monospace;
-            background: #F3E5F5;
-            padding: 15px;
-            border: 2px dashed var(--black);
-            border-radius: 10px;
-        }
-
-        .btn {
-            background-color: var(--accent-purple);
-            color: var(--black);
-            border: 3px solid var(--black);
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--black);
-            transition: transform 0.1s, box-shadow 0.1s;
-            margin-top: 20px;
-            text-transform: uppercase;
-            display: inline-block;
-        }
-
-        .btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0px var(--black);
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: drop 3s infinite linear;
-            top: -20px;
-            z-index: 10;
-        }
-
-        @keyframes drop {
-            0% { top: -20px; transform: translateX(0) rotate(0deg); }
-            100% { top: 100vh; transform: translateX(50px) rotate(360deg); }
-        }
+        :root { --lila-pastel: #E8DFF5; --black: #1A1A1A; --white: #FFFFFF; --accent-purple: #B39DDB; }
+        body { font-family: 'Comic Sans MS', sans-serif; background-color: var(--lila-pastel); color: var(--black); margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; position: relative; overflow-x: hidden; }
+        .stars-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
+        .star { position: absolute; background-color: white; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); opacity: 0; animation: twinkle 3s infinite ease-in-out; }
+        @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.8; transform: scale(1.2); } }
+        .card { background: var(--white); padding: 30px; border-radius: 20px; border: 4px solid var(--black); box-shadow: 8px 8px 0px var(--black); max-width: 500px; width: 100%; position: relative; z-index: 1; box-sizing: border-box; }
+        .ventana { display: none; width: 100%; animation: fadeIn 0.5s ease-in-out forwards; }
+        .ventana.activa { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .zig-zag { height: 20px; width: 100%; background: linear-gradient(135px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%), linear-gradient(225px, transparent 25%, var(--black) 25%, var(--black) 50%, transparent 50%, transparent 75%, var(--black) 75%); background-size: 20px 40px; margin: 20px 0; }
+        .gif-row { display: flex; justify-content: center; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
+        .gif-inline { width: 45%; max-width: 130px; height: auto; border-radius: 10px; }
+        .gif-center { width: 100%; max-width: 140px; height: auto; border-radius: 10px; margin: 15px auto; display: block; }
+        .gif-principal { width: 100%; max-width: 160px; height: auto; display: block; margin: 0 auto; border-radius: 10px; }
+        h1 { font-size: 2.3rem; margin-bottom: 10px; text-transform: uppercase; }
+        p { font-size: 1.15rem; line-height: 1.6; text-align: justify; margin: 15px 0; }
+        .frase-especial { font-style: italic; font-weight: bold; font-size: 1.3rem; color: #D32F2F; margin: 20px 0; padding: 15px; border-left: 4px solid var(--black); border-right: 4px solid var(--black); background-color: #FFFDE7; border-radius: 10px; }
+        .firma { font-size: 1.2rem; font-weight: bold; color: #222; margin: 20px 0; font-family: monospace; background: #F3E5F5; padding: 15px; border: 2px dashed var(--black); border-radius: 10px; }
+        .btn { background-color: var(--accent-purple); color: var(--black); border: 3px solid var(--black); padding: 12px 25px; font-size: 1.1rem; font-weight: bold; border-radius: 10px; cursor: pointer; box-shadow: 4px 4px 0px var(--black); margin-top: 20px; text-transform: uppercase; }
+        .btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--black); }
+        .confetti { position: absolute; width: 10px; height: 10px; animation: drop 3s infinite linear; top: -20px; z-index: 10; }
+        @keyframes drop { 0% { top: -20px; transform: translateX(0) rotate(0deg); } 100% { top: 100vh; transform: translateX(50px) rotate(360deg); } }
     </style>
 </head>
 <body>
-
     <audio id="musicaFondo" src="musica.mp3" loop></audio>
-
     <div class="stars-container" id="starsBg"></div>
-
     <div class="card">
-        
-        <!-- VENTANA 1 -->
         <div class="ventana activa" id="v1">
             <h1>¡Feliz Cumpleaños Greysi!</h1>
             <div class="zig-zag"></div>
-            <img src="snoopy.gif" alt="Snoopy Bailando" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <img src="snoopy.gif" alt="Snoopy 1" class="gif-principal">
             <div class="zig-zag"></div>
             <button class="btn" onclick="iniciarExperiencia()">Siguiente ✨</button>
         </div>
-
-        <!-- VENTANA 2 -->
         <div class="ventana" id="v2">
-            <div class="frase-especial">
-                "¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️
-            </div>
-            <img src="Quesomos.gif" alt="Snoopy Intento" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <div class="frase-especial">"¿Qué somos si no lo intentamos? ¿Qué somos si no lo hacemos de corazón por los que amamos?" ❤️</div>
+            <img src="Quesomos.gif" alt="Snoopy 2" class="gif-principal">
             <button class="btn" onclick="cambiarVentana('v2', 'v3')">Continuar 🐾</button>
         </div>
-
-        <!-- VENTANA 3 -->
         <div class="ventana" id="v3">
-            <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres. Quizá los días festivos suelen ser un poquito tristes, pues nos llenamos de nostalgia por quienes ya no están, pero hoy, quiero tener estos detalles, con la noble intención de hacer que este viaje llamado vida, sea un viaje más bonito para ti y que no solo tengas recuerdos y momentos amargos, sino, que te enteres que la vida es hermosa por donde se vea. No puedo explicar los sentimientos que me recorren, ni el cómo veo la vida solo con palabras, pero siento que se me desbordan los sentimientos cuando se trata de esas cosas que me hacen sentir vivo... y me ahogo... y trato de nadar... y entiendo que es así como sucede la vida, levantándonos mutuamente, dándonos la mano, soportándonos y entendiéndonos, queriéndonos con nuestro mal temperamento...</p>
+            <div class="gif-row">
+                <img src="Latin1.gif" alt="Latin 1" class="gif-inline">
+                <img src="Latin2.gif" alt="Latin 2" class="gif-inline">
+            </div>
+            <p>¡Que tengas una vida increíble, Greysi! Que esté llena de felicidad, sueños cumplidos y momentos hermosos con los que quieres. Quizá los días festivos suelen ser un poquito tristes, pues nos llenamos de nostalgia por quienes ya no están, pero hoy, quiero tener estos detalles, con la noble intención de hacer que este viaje llamado vida, sea un viaje más bonito para ti y que no solo tengas recuerdos y momentos amargos, sino, que te enteres que la vida es hermosa por donde se vea.</p>
+            <div class="gif-row">
+                <img src="Latin3.gif" alt="Latin 3" class="gif-inline">
+                <img src="Latin6.gif" alt="Latin 6" class="gif-inline">
+            </div>
+            <p>No puedo explicar los sentimientos que me recorren, ni el cómo veo la vida solo con palabras, pero siento que se me desbordan los sentimientos cuando se trata de esas cosas que me hacen sentir vivo... y me ahogo... y trato de nadar... </p>
+            <img src="Tusueño.gif" alt="Snoopy Original" class="gif-center">
+            <p>y entiendo que es así como sucede la vida, levantándonos mutuamente, dándonos la mano, soportándonos y entendiéndonos, queriéndonos con nuestro mal temperamento...</p>
             <div class="zig-zag"></div>
-            <img src="Tusueño.gif" alt="Snoopy Sueños" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <div class="gif-row">
+                <img src="Latin4.gif" alt="Latin 4" class="gif-inline">
+                <img src="Latin5.gif" alt="Latin 5" class="gif-inline">
+            </div>
             <div class="zig-zag"></div>
             <button class="btn" onclick="cambiarVentana('v3', 'v4')">Ver Firma ✉️</button>
         </div>
-
-        <!-- VENTANA 4 -->
         <div class="ventana" id="v4">
-            <div class="firma">
-                De Anibal, para tí... no me olvides. ✨
-            </div>
-            <img src="Happy2.gif" alt="Snoopy Final" style="width: 100%; max-width: 160px; display: block; margin: 0 auto; border-radius: 10px;">
+            <div class="firma">De Anibal, para tí... no me olvides. ✨</div>
+            <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
             <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
         </div>
-
     </div>
-
     <script {nonce}>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
@@ -229,21 +85,16 @@
             star.style.animationDelay = `${Math.random() * 3}s`;
             starsContainer.appendChild(star);
         }
-
         function iniciarExperiencia() {
-            const musica = document.getElementById('musicaFondo');
-            musica.play().catch(error => console.log("El navegador bloqueó el inicio automático:", error));
+            document.getElementById('musicaFondo').play().catch(e => console.log(e));
             cambiarVentana('v1', 'v2');
         }
-
         function cambiarVentana(idOcultar, idMostrar) {
             document.getElementById(idOcultar).classList.remove('activa');
             document.getElementById(idMostrar).classList.add('activa');
         }
-
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
-            
             for(let i=0; i<60; i++) {
                 let confetti = document.createElement('div');
                 confetti.classList.add('confetti');
@@ -251,7 +102,6 @@
                 confetti.style.animationDelay = Math.random() * 2 + 's';
                 confetti.style.backgroundColor = ['#D1C4E9', '#B39DDB', '#FF4081', '#00E676', '#00B0FF'][Math.floor(Math.random() * 5)];
                 document.body.appendChild(confetti);
-                
                 setTimeout(() => confetti.remove(), 3000);
             }
         }
