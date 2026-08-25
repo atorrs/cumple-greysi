@@ -28,12 +28,12 @@
         .confetti { position: absolute; width: 10px; height: 10px; animation: drop 3s infinite linear; top: -20px; z-index: 10; }
         @keyframes drop { 0% { top: -20px; transform: translateX(0) rotate(0deg); } 100% { top: 100vh; transform: translateX(50px) rotate(360deg); } }
 
-        /* MOSAICO OPTIMIZADO PARA MOSTRAR FOTOS COMPLETAS */
-        .mosaico-contenedor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px; padding: 12px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 15px; background-color: var(--white); max-height: 400px; overflow-y: auto; }
-        .mosaico-item { width: 100%; aspect-ratio: 1; object-fit: contain; /* Muestra la foto completa */ background-color: #f1ecf7; /* Fondo sutil para rellenar espacios libres */ border: 2px solid var(--black); border-radius: 8px; opacity: 0; transform: translateY(25px) scale(0.7); transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        /* Los 3 GIFs toman un tamaño un poco más grande y completo */
-        .mosaico-item.gif-destacado { grid-column: span 3; aspect-ratio: auto; max-height: 150px; background-color: transparent; }
-        .mosaico-item.mostrar { opacity: 1; transform: translateY(0) scale(1); }
+        /* DISEÑO DE COLUMNA ÚNICA VERTICAL AUTOMÁTICA */
+        .columna-contenedor { display: flex; flex-direction: column; gap: 20px; margin-top: 25px; padding: 15px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 15px; background-color: var(--white); max-height: 450px; overflow-y: auto; }
+        
+        .columna-item { width: 100%; height: auto; max-height: 350px; object-fit: contain; /* Foto completa sin recortes */ border: 2px solid var(--black); border-radius: 10px; opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        .columna-item.mostrar { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -64,7 +64,7 @@
             </div>
             <p>No puedo explicar los sentimientos que me recorren, ni el cómo veo la vida solo con palabras, pero siento que se me desbordan los sentimientos cuando se trata de esas cosas que me hacen sentir vivo... y me ahogo... y trato de nadar... </p>
             <img src="Tusueño.gif" alt="Snoopy Original" class="gif-center">
-            <p>y entiendo que es así como sucede la vida, levantándonos mutuamente, dándonos la mano, soportándonos y entendiéndonos, queriéndonos con nuestro mal temperamento...</p>
+            <p>y entiendo que es así como sucede la vida, levantándonos mutuamente, dándonos la mano, soportándonos and entendiéndonos, queriéndonos con nuestro mal temperamento...</p>
             <div class="zig-zag"></div>
             <div class="gif-row">
                 <img src="Latin4.gif" alt="Latin 4" class="gif-inline">
@@ -78,10 +78,11 @@
             <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
             <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
-            <div class="mosaico-contenedor" id="mosaicoFinal" style="display: none;"></div>
+            <!-- Contenedor adaptado para una sola columna vertical -->
+            <div class="columna-contenedor" id="columnaFinal" style="display: none;"></div>
         </div>
     </div>
-     <script>
+    <script>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
@@ -103,28 +104,31 @@
         }
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
-            const mosaico = document.getElementById('mosaicoFinal');
-            if (mosaico && mosaico.children.length === 0) {
-                mosaico.style.display = 'grid';
+            const columna = document.getElementById('columnaFinal');
+            if (columna && columna.children.length === 0) {
+                columna.style.display = 'flex';
                 
+                // Cargamos primero los 3 GIFs automáticos
                 for (let g = 1; g <= 3; g++) {
                     let imgGif = document.createElement('img');
                     imgGif.src = `gif${g}.gif`;
                     imgGif.alt = `Gif ${g}`;
-                    imgGif.classList.add('mosaico-item', 'gif-destacado');
-                    mosaico.appendChild(imgGif);
+                    imgGif.classList.add('columna-item');
+                    columna.appendChild(imgGif);
                 }
+                // Cargamos las 27 fotos una debajo de otra
                 for (let i = 1; i <= 27; i++) {
                     let imgFoto = document.createElement('img');
                     imgFoto.src = `img${i}.jpg`;
                     imgFoto.alt = `Foto ${i}`;
-                    imgFoto.classList.add('mosaico-item');
-                    mosaico.appendChild(imgFoto);
+                    imgFoto.classList.add('columna-item');
+                    columna.appendChild(imgFoto);
                 }
+                // Animación automática progresiva hacia abajo
                 setTimeout(() => {
-                    const items = mosaico.querySelectorAll('.mosaico-item');
+                    const items = columna.querySelectorAll('.columna-item');
                     items.forEach((item, index) => {
-                        setTimeout(() => { item.classList.add('mostrar'); }, index * 220);
+                        setTimeout(() => { item.classList.add('mostrar'); }, index * 300); // Brota una foto grande cada 0.3 segundos
                     });
                 }, 100);
             }
