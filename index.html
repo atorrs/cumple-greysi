@@ -86,7 +86,7 @@
             <div class="columna-contenedor" id="columnaFinal" style="display: none;"></div>
         </div>
     </div>
-     <script>
+    <script>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
@@ -106,7 +106,7 @@
             };
         }
 
-        // Si el usuario da click en la tarjeta antes de que termine el video, ayuda con el autoplay en móviles
+        // Ayuda con el autoplay en dispositivos móviles si tocan la tarjeta
         document.querySelector('.card').addEventListener('click', () => {
             const video = document.getElementById('videoIntro');
             if (video && video.paused && !video.ended) {
@@ -121,22 +121,29 @@
             document.getElementById('musicaFondo').play().catch(e => console.log(e));
             cambiarVentana('v1', 'v2');
         }
+        
         function cambiarVentana(idOcultar, idMostrar) {
             document.getElementById(idOcultar).classList.remove('activa');
             document.getElementById(idMostrar).classList.add('activa');
         }
+        
         function lanzarSorpresa() {
             alert("¡Feliz cumple, Pao! Que todos tus deseos se cumplan siempre 🐾🎂🎈");
             const columna = document.getElementById('columnaFinal');
+            
             if (columna && columna.children.length === 0) {
                 columna.style.display = 'flex';
+                
+                // 1. CORREGIDO: Carga dinámica de los 3 GIFs con su variable correcta
                 for (let g = 1; g <= 3; g++) {
                     let imgGif = document.createElement('img');
                     imgGif.src = `gif${g}.gif`;
                     imgGif.alt = `Gif ${g}`;
-                    imgFoto.classList.add('columna-item');
+                    imgGif.classList.add('columna-item');
                     columna.appendChild(imgGif);
                 }
+                
+                // 2. Carga dinámica de las 27 imágenes verticales
                 for (let i = 1; i <= 27; i++) {
                     let imgFoto = document.createElement('img');
                     imgFoto.src = `img${i}.jpg`;
@@ -144,6 +151,8 @@
                     imgFoto.classList.add('columna-item');
                     columna.appendChild(imgFoto);
                 }
+                
+                // 3. Activación de la animación en cascada progresiva
                 setTimeout(() => {
                     const items = columna.querySelectorAll('.columna-item');
                     items.forEach((item, index) => {
@@ -151,6 +160,8 @@
                     });
                 }, 100);
             }
+            
+            // Lógica del confetti
             const colores = ['#D1C4E9', '#B39DDB', '#FF4081', '#00E676', '#00B0FF'];
             for(let i = 0; i < 60; i++) {
                 let confetti = document.createElement('div');
