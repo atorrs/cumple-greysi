@@ -28,11 +28,11 @@
         .confetti { position: absolute; width: 10px; height: 10px; animation: drop 3s infinite linear; top: -20px; z-index: 10; }
         @keyframes drop { 0% { top: -20px; transform: translateX(0) rotate(0deg); } 100% { top: 100vh; transform: translateX(50px) rotate(360deg); } }
 
-        /* NUEVOS ESTILOS PARA EL MOSAICO AUTOMÁTICO */
-        .mosaico-contenedor { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 25px; padding: 10px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 15px; background-color: var(--white); max-height: 380px; overflow-y: auto; }
-        .mosaico-item { width: 100%; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--black); border-radius: 8px; opacity: 0; transform: translateY(30px) scale(0.6); transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        /* Hace que los GIFs resalten siendo un poco más grandes */
-        .mosaico-item.gif-destacado { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; height: 100%; }
+        /* MOSAICO OPTIMIZADO PARA MOSTRAR FOTOS COMPLETAS */
+        .mosaico-contenedor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px; padding: 12px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 15px; background-color: var(--white); max-height: 400px; overflow-y: auto; }
+        .mosaico-item { width: 100%; aspect-ratio: 1; object-fit: contain; /* Muestra la foto completa */ background-color: #f1ecf7; /* Fondo sutil para rellenar espacios libres */ border: 2px solid var(--black); border-radius: 8px; opacity: 0; transform: translateY(25px) scale(0.7); transition: opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* Los 3 GIFs toman un tamaño un poco más grande y completo */
+        .mosaico-item.gif-destacado { grid-column: span 3; aspect-ratio: auto; max-height: 150px; background-color: transparent; }
         .mosaico-item.mostrar { opacity: 1; transform: translateY(0) scale(1); }
     </style>
 </head>
@@ -78,11 +78,10 @@
             <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
             <button class="btn" onclick="lanzarSorpresa()">¡Presiona para tu Sorpresa! 🎈</button>
-            <!-- Contenedor del collage de fotos cambiada por la clase mosaico -->
             <div class="mosaico-contenedor" id="mosaicoFinal" style="display: none;"></div>
         </div>
     </div>
-    <script>
+     <script>
         const starsContainer = document.getElementById('starsBg');
         for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
@@ -108,7 +107,6 @@
             if (mosaico && mosaico.children.length === 0) {
                 mosaico.style.display = 'grid';
                 
-                // Agregamos primero los 3 GIFs destacados en el collage
                 for (let g = 1; g <= 3; g++) {
                     let imgGif = document.createElement('img');
                     imgGif.src = `gif${g}.gif`;
@@ -116,7 +114,6 @@
                     imgGif.classList.add('mosaico-item', 'gif-destacado');
                     mosaico.appendChild(imgGif);
                 }
-                // Agregamos las 27 fotos ordenadas
                 for (let i = 1; i <= 27; i++) {
                     let imgFoto = document.createElement('img');
                     imgFoto.src = `img${i}.jpg`;
@@ -124,13 +121,10 @@
                     imgFoto.classList.add('mosaico-item');
                     mosaico.appendChild(imgFoto);
                 }
-                // Efecto automático de brote progresivo
                 setTimeout(() => {
                     const items = mosaico.querySelectorAll('.mosaico-item');
                     items.forEach((item, index) => {
-                        setTimeout(() => { 
-                            item.classList.add('mostrar'); 
-                        }, index * 250); // Aparece una foto automáticamente cada 0.25 segundos
+                        setTimeout(() => { item.classList.add('mostrar'); }, index * 220);
                     });
                 }, 100);
             }
