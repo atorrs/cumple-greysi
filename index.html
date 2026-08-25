@@ -10,10 +10,7 @@
         .stars-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }
         .star { position: absolute; background-color: white; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); opacity: 0; animation: twinkle 3s infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.8; transform: scale(1.2); } }
-        
-        /* TARJETA ORIGINAL COMPACTA */
         .card { background: var(--white); padding: 30px; border-radius: 20px; border: 4px solid var(--black); box-shadow: 8px 8px 0px var(--black); max-width: 500px; width: 100%; position: relative; z-index: 1; box-sizing: border-box; }
-        
         .ventana { display: none; width: 100%; animation: fadeIn 0.5s ease-in-out forwards; }
         .ventana.activa { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -35,14 +32,7 @@
         .columna-item { width: 100%; height: auto; max-height: 350px; object-fit: contain; border: 2px solid var(--black); border-radius: 10px; opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .columna-item.mostrar { opacity: 1; transform: translateY(0); }
 
-        /* REPRODUCTOR ADAPTADO PARA VIDEO VERTICAL 9:16 */
         .video-intro { width: 100%; max-width: 240px; height: auto; aspect-ratio: 9 / 16; object-fit: contain; border: 3px solid var(--black); border-radius: 12px; box-shadow: 5px 5px 0px var(--black); margin: 15px auto; background-color: #000; display: block; }
-        
-        /* CUADRO MUSICAL DE FRANK OCEAN */
-        .cita-musica { font-family: monospace; font-size: 1.05rem; line-height: 1.5; color: #333; background: #FAFAFA; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); border-radius: 12px; padding: 20px; text-align: left; margin: 25px 0; position: relative; }
-        .cita-texto { font-style: italic; font-weight: bold; margin-bottom: 10px; color: var(--black); }
-        .cita-autor { font-size: 0.85rem; color: #666; text-align: right; text-transform: uppercase; letter-spacing: 1px; }
-        .cita-icono { position: absolute; top: -12px; right: 15px; background: var(--accent-purple); border: 2px solid var(--black); padding: 2px 8px; font-size: 0.8rem; border-radius: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -53,7 +43,6 @@
             <h1>¡Feliz Cumpleaños Greysi!</h1>
             <div class="zig-zag"></div>
             
-            <!-- Video vertical centrado con proporciones correctas -->
             <video id="videoIntro" class="video-intro" controls autoplay>
                 <source src="video.mp4" type="video/mp4">
                 Tu navegador no soporta videos.
@@ -90,13 +79,6 @@
             <button class="btn" onclick="cambiarVentana('v3', 'v4')">Ver Firma ✉️</button>
         </div>
         <div class="ventana" id="v4">
-            <!-- FRASE DE FRANK OCEAN INCORPORADA -->
-            <div class="cita-musica">
-                <div class="cita-icono">TRACK 05 🎧</div>
-                <div class="cita-texto">"I care for you still, and I will forever<br>That was my part of the deal, honest<br>We got so familiar"</div>
-                <div class="cita-autor">— White Ferrari by Frank Ocean</div>
-            </div>
-            
             <div class="firma">De Anibal, para tí... no me olvides. ✨</div>
             <img src="Happy2.gif" alt="Snoopy Final" class="gif-principal">
             <br>
@@ -124,6 +106,14 @@
             };
         }
 
+        // Si el usuario da click en la tarjeta antes de que termine el video, ayuda con el autoplay en móviles
+        document.querySelector('.card').addEventListener('click', () => {
+            const video = document.getElementById('videoIntro');
+            if (video && video.paused && !video.ended) {
+                video.play().catch(e => console.log(e));
+            }
+        });
+
         function iniciarExperiencia() {
             const video = document.getElementById('videoIntro');
             if (video) { video.pause(); }
@@ -144,7 +134,7 @@
                     let imgGif = document.createElement('img');
                     imgGif.src = `gif${g}.gif`;
                     imgGif.alt = `Gif ${g}`;
-                    imgGif.classList.add('columna-item');
+                    imgFoto.classList.add('columna-item');
                     columna.appendChild(imgGif);
                 }
                 for (let i = 1; i <= 27; i++) {
